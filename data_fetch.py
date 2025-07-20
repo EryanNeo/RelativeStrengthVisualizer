@@ -6,6 +6,23 @@ db = MongoClient('mongodb://localhost:27017')['underlying']
 def get_collections():
     return db.list_collection_names()
 
+sector_map = {
+    'Bank': ['AXISBANK', 'HDFCBANK', 'ICICIBANK', 'INDUSINDBK', 'KOTAKBANK', 'SBIN'],
+    'Financial': ['BAJAJFINSV', 'BAJFINANCE', 'HDFCLIFE', 'JIOFIN', 'SBILIFE', 'SHRIRAMFIN'],
+    'IT': ['HCLTECH', 'INFY', 'TCS', 'TECHM', 'WIPRO'],
+    'Auto': ['BAJAJ-AUTO', 'EICHERMOT', 'HEROMOTOCO', 'M&M', 'MARUTI', 'TATAMOTORS'],
+    'FMCG': ['HINDUNILVR', 'ITC', 'NESTLEIND', 'TATACONSUM'],
+    'Pharma': ['APOLLOHOSP', 'CIPLA', 'DRREDDY', 'SUNPHARMA'],
+    'Oil and Gas': ['COALINDIA', 'ONGC', 'RELIANCE'],
+    'Metals and Mining': ['ADANIENT','HINDALCO', 'JSWSTEEL', 'TATASTEEL'],
+    'Power': ['NTPC', 'POWERGRID'],
+    'Consumer Durables': ['ASIANPAINT', 'TITAN'],
+    'Construction Materials': ['GRASIM', 'ULTRACEMCO'],
+    'Consumer Services': ['ETERNAL', 'TRENT'],
+    'Extras': ['ADANIPORTS','BHARTIARTL', 'BEL', 'LT']
+    
+}
+
 def get_data(stock):
     return pd.DataFrame(list(db[stock].find())).drop(columns = ['_id', 'symbol'])
     # return pd.DataFrame(list(db[stock].find())).drop(columns = '_id').to_dict(orient = 'records')
